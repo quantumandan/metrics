@@ -1,0 +1,33 @@
+package hamming
+
+import (
+	"testing"
+)
+
+func TestHammingDistance(t *testing.T) {
+	type args struct {
+		str1 string
+		str2 string
+	}
+	tests := []struct {
+		name    string
+		args    args
+		want    int
+		wantErr bool
+	}{
+		{"aa/aa", args{"aa", "aa"}, 0, false},
+		{"ab/aa", args{"ab", "aa"}, 1, false},
+		{"ab/ba", args{"ab", "ba"}, 2, false},
+		{"ab/aaa", args{"ab", "aaa"}, 0, true},
+		{"bbb/a", args{"bbb", "a"}, 0, true},
+		{"🙂😄🙂😄/😄🙂😄🙂", args{"🙂😄🙂😄", "😄🙂😄🙂"}, 4, false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := EditDistance(tt.args.str1, tt.args.str2)
+			if got != tt.want {
+				t.Errorf("EditDistance() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
