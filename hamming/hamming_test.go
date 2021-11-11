@@ -19,7 +19,7 @@ func TestHammingDistance(t *testing.T) {
 		{"ab/ba", args{"ab", "ba"}, 2},
 		{"ab/aaa", args{"ab", "aaa"}, 0},
 		{"bbb/a", args{"bbb", "a"}, 0},
-		{"bbb/b", args{"bbb", "b"}, 2},
+		{"bbb/b", args{"bbb", "b"}, 1},
 		{"🙂😄🙂😄/😄🙂😄🙂", args{"🙂😄🙂😄", "😄🙂😄🙂"}, 4},
 	}
 	for _, tt := range tests {
