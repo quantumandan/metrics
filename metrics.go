@@ -13,4 +13,8 @@ func main() {
     fmt.Println(hamming.EditDistance("intention", "execution"))
     fmt.Println(levenshtein.EditDistance("horse", "ros"))
     fmt.Println(hamming.EditDistance("horse", "ros"))
+    fmt.Println(levenshtein.EditDistance("karolin", "kathrin"))
+    fmt.Println(hamming.EditDistance("karolin", "kathrin"))
+    fmt.Println(levenshtein.EditDistance("kitten", "sitting"))
+    fmt.Println(hamming.EditDistance("kitten", "sitting"))
 }

@@ -4,6 +4,8 @@ import (
 	"testing"
 )
 
+// I dont quite understand why this is a necessary datastructure, but lets
+// preserve for posterity and learning
 var hashMapA, hashMapB StringHashMap
 
 func init() {
