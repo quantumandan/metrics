@@ -15,15 +15,16 @@ func EditDistance(a, b string) int {
 		return bLen
 	} else if bLen == 0 {
 		return aLen
-	} else if Equal(runeA, runeB) {
+	} else if equal(runeA, runeB) {
 		return 0
 	}
 
 	dSlice := make([]int, aLen + 1)
 
-	for y := 1; y <= aLen; y++ {
-		dSlice[y] = y
+	for col := 1; col <= aLen; col++ {
+		dSlice[col] = col
 	}
+
 	for x := 1; x <= bLen; x++ {
 		dSlice[0] = x
 		lastkey := x - 1
@@ -33,8 +34,8 @@ func EditDistance(a, b string) int {
 			if runeA[y-1] != runeB[x-1] {
 				i = 1
 			}
-			dSlice[y] = Minimum(
-							Minimum(dSlice[y] + 1, // insert
+			dSlice[y] = minimum(
+							minimum(dSlice[y] + 1, // insert
 							dSlice[y - 1] + 1),    // delete
 							lastkey + i)           // substitution
 			lastkey = oldkey
@@ -44,7 +45,7 @@ func EditDistance(a, b string) int {
 	return dSlice[aLen]
 }
 
-func Minimum(x, y int) int {
+func minimum(x, y int) int {
 // Minimum returns the smallest integer among the two in parameters
 	if y < x {
         return y
@@ -53,7 +54,7 @@ func Minimum(x, y int) int {
 }
 
 // Equal compare two rune arrays and return if they are equals or not
-func Equal(a, b []rune) bool {
+func equal(a, b []rune) bool {
 	if len(a) != len(b) {
 		return false
 	}
