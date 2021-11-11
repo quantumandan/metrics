@@ -9,39 +9,39 @@ func EditDistance(a, b string) int {
 	runeB := []rune(b)
 
 	// Get and store length of these strings
-	ALen := len(runeA)
-	BLen := len(runeB)
-	if ALen == 0 {
-		return BLen
-	} else if BLen == 0 {
-		return ALen
+	aLen := len(runeA)
+	bLen := len(runeB)
+	if aLen == 0 {
+		return bLen
+	} else if bLen == 0 {
+		return aLen
 	} else if Equal(runeA, runeB) {
 		return 0
 	}
 
-	DSlice := make([]int, ALen + 1)
+	dSlice := make([]int, aLen + 1)
 
-	for y := 1; y <= ALen; y++ {
-		DSlice[y] = y
+	for y := 1; y <= aLen; y++ {
+		dSlice[y] = y
 	}
-	for x := 1; x <= BLen; x++ {
-		DSlice[0] = x
+	for x := 1; x <= bLen; x++ {
+		dSlice[0] = x
 		lastkey := x - 1
-		for y := 1; y <= ALen; y++ {
-			oldkey := DSlice[y]
+		for y := 1; y <= aLen; y++ {
+			oldkey := dSlice[y]
 			var i int
 			if runeA[y-1] != runeB[x-1] {
 				i = 1
 			}
-			DSlice[y] = Minimum(
-							Minimum(DSlice[y] + 1, // insert
-							DSlice[y - 1] + 1),    // delete
+			dSlice[y] = Minimum(
+							Minimum(dSlice[y] + 1, // insert
+							dSlice[y - 1] + 1),    // delete
 							lastkey + i)           // substitution
 			lastkey = oldkey
 		}
 	}
 
-	return DSlice[ALen]
+	return dSlice[aLen]
 }
 
 func Minimum(x, y int) int {
