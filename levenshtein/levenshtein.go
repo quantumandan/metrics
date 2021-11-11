@@ -45,7 +45,7 @@ func EditDistance(a, b string) int {
 }
 
 func Minimum(x, y int) int {
-// Return the smallest integer among the two in parameters
+// Minimum returns the smallest integer among the two in parameters
 	if y < x {
         return y
     }
