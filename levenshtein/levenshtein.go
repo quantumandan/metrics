@@ -36,21 +36,13 @@ func EditDistance(a, b string) int {
 			if runeA[y-1] != runeB[x-1] {
 				i = 1
 			}
-			dSlice[y] = minimum(
-							minimum(dSlice[y] + 1, // insert
-							dSlice[y - 1] + 1),    // delete
-							lastkey + i)           // substitution
+			dSlice[y] = utils.Min(
+							utils.Min(dSlice[y] + 1, // insert
+							dSlice[y - 1] + 1),      // delete
+							lastkey + i)             // substitution
 			lastkey = oldkey
 		}
 	}
 
 	return dSlice[aLen]
-}
-
-func minimum(x, y int) int {
-// Minimum returns the smallest integer among the two in parameters
-	if y < x {
-        return y
-    }
-	return x
 }
