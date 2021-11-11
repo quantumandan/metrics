@@ -1,7 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/quantumandan/metrics/levenshtein"
+)
 
 func main() {
-    fmt.Println("hi and stuff")
+    fmt.Println(levenshtein.EditDistance("intention", "execution"))
 }

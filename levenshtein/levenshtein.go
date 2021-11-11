@@ -1,60 +1,66 @@
 package levenshtein
 
-// Return the smallest integer among the two in parameters
-func minimum(a, b int) int {
-    if b < a {
-        return b
-    }
-	return a
+// EditDistance calculate the distance between two string
+// This algorithm allow insertions, deletions and substitutions to change one string to the second
+// Compatible with non-ASCII characters
+func EditDistance(a, b string) int {
+	// Convert string parameters to rune arrays to be compatible with non-ASCII
+	runeA := []rune(a)
+	runeB := []rune(b)
+
+	// Get and store length of these strings
+	ALen := len(runeA)
+	BLen := len(runeB)
+	if ALen == 0 {
+		return BLen
+	} else if BLen == 0 {
+		return ALen
+	} else if Equal(runeA, runeB) {
+		return 0
+	}
+
+	DSlice := make([]int, ALen + 1)
+
+	for y := 1; y <= ALen; y++ {
+		DSlice[y] = y
+	}
+	for x := 1; x <= BLen; x++ {
+		DSlice[0] = x
+		lastkey := x - 1
+		for y := 1; y <= ALen; y++ {
+			oldkey := DSlice[y]
+			var i int
+			if runeA[y-1] != runeB[x-1] {
+				i = 1
+			}
+			DSlice[y] = Minimum(
+							Minimum(DSlice[y] + 1, // insert
+							DSlice[y - 1] + 1),    // delete
+							lastkey + i)           // substitution
+			lastkey = oldkey
+		}
+	}
+
+	return DSlice[ALen]
 }
 
-func EditDistance(a, b string) int {
-	// Convert strings to runes (less brittle)
-	runeWord1 := []rune(a)
-	runeWord2 := []rune(b)
+func Minimum(x, y int) int {
+// Return the smallest integer among the two in parameters
+	if y < x {
+        return y
+    }
+	return x
+}
 
-	// Dimensions of the edit distance matrix
-	m := len(runeWord1) + 1  // number columns
-	n := len(runeWord2) + 1  // number rows
-
-	// Create edit distance matrix D
-	D := [m][n]int{}
-
-	// Initialize the columns
-	for i := 1; i <= m; i++ {
-		D[i][0] = i
+// Equal compare two rune arrays and return if they are equals or not
+func Equal(a, b []rune) bool {
+	if len(a) != len(b) {
+		return false
 	}
-	// Initialize the rows
-	for j := 1; j <= n; j++ {
-		D[0][j] = j
+	for i, v := range a {
+		if v != b[i] {
+			return false
+		}
 	}
-
-	// Calculate the cost of a substitution
-	// for j := 1; j <= n; j++ {
-	// 	for i := 1; i <= m; i++ {
-	// 		subcost := 0
-	// 		if (runeWord1[i] != runeWord2[j]) {
-	// 			subcost = 1
-	// 		}
-
-	// 		// editCosts := []int{D[i - 1][j] + 1, D[i][j - 1] + 1, D[i - 1][j - 1] + subcost}
-	// 		// min := editCosts[0]
-	// 		// for _, v := range editCosts {
-	// 		// 	if (v < min) {
-	// 		// 		min = v
-	// 		// 	}
-	// 		// }
-
-	// 		D[i][j] = minimum(
-	// 					minimum(D[i - 1][j] + 1, D[i][j - 1] + 1),
-	// 							D[i - 1][j - 1] + subcost)
-
-	// 		// D[i][j] = minimum(
-	// 		// 			minimum(
-	// 		// 				D[i - 1][j] + 1,  		// deletion
-	// 		// 				D[i][j - 1] + 1),  		// insertion
-	// 		// 				D[i - 1][j - 1] + cost)  // substitution
-					
-	// }
-	return D[m][n]
+	return true
 }
