@@ -13,14 +13,14 @@ func TestHammingDistance(t *testing.T) {
 		name    string
 		args    args
 		want    int
-		wantErr bool
 	}{
-		{"aa/aa", args{"aa", "aa"}, 0, false},
-		{"ab/aa", args{"ab", "aa"}, 1, false},
-		{"ab/ba", args{"ab", "ba"}, 2, false},
-		{"ab/aaa", args{"ab", "aaa"}, 0, true},
-		{"bbb/a", args{"bbb", "a"}, 0, true},
-		{"🙂😄🙂😄/😄🙂😄🙂", args{"🙂😄🙂😄", "😄🙂😄🙂"}, 4, false},
+		{"aa/aa", args{"aa", "aa"}, 0},
+		{"ab/aa", args{"ab", "aa"}, 1},
+		{"ab/ba", args{"ab", "ba"}, 2},
+		{"ab/aaa", args{"ab", "aaa"}, 0},
+		{"bbb/a", args{"bbb", "a"}, 0},
+		{"bbb/b", args{"bbb", "b"}, 2},
+		{"🙂😄🙂😄/😄🙂😄🙂", args{"🙂😄🙂😄", "😄🙂😄🙂"}, 4},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

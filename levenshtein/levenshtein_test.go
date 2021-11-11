@@ -21,6 +21,7 @@ func Test_levenshteinDistance(t *testing.T) {
 		{"ab/ba", args{"ab", "ba"}, 2},
 		{"ab/aaa", args{"ab", "aaa"}, 2},
 		{"bbb/a", args{"bbb", "a"}, 3},
+		{"bbb/b", args{"bbb", "b"}, 2},
 		{"kitten/sitting", args{"kitten", "sitting"}, 3},
 		{"distance/difference", args{"distance", "difference"}, 5},
 		{"a cat/an abct", args{"a cat", "an abct"}, 4},

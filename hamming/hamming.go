@@ -1,17 +1,6 @@
 package hamming
 
-// Equal compare two rune arrays and return if they are equals or not
-func Equal(a, b []rune) bool {
-	if len(a) != len(b) {
-		return false
-	}
-	for i, v := range a {
-		if v != b[i] {
-			return false
-		}
-	}
-	return true
-}
+import "github.com/quantumandan/metrics/utils"
 
 // HammingDistance calculate the edit distance between two given strings using only substitutions
 // Return edit distance integer
@@ -22,7 +11,7 @@ func EditDistance(a, b string) int {
 
 	if len(runeA) != len(runeB) {
 		return 0
-	} else if Equal(runeA, runeB) {
+	} else if utils.Equal(runeA, runeB) {
 		return 0
 	}
 

@@ -1,5 +1,7 @@
 package levenshtein
 
+import "github.com/quantumandan/metrics/utils"
+
 // EditDistance calculate the distance between two string
 // This algorithm allow insertions, deletions and substitutions to change one string to the second
 // Compatible with non-ASCII characters
@@ -15,7 +17,7 @@ func EditDistance(a, b string) int {
 		return bLen
 	} else if bLen == 0 {
 		return aLen
-	} else if equal(runeA, runeB) {
+	} else if utils.Equal(runeA, runeB) {
 		return 0
 	}
 
@@ -51,17 +53,4 @@ func minimum(x, y int) int {
         return y
     }
 	return x
-}
-
-// Equal compare two rune arrays and return if they are equals or not
-func equal(a, b []rune) bool {
-	if len(a) != len(b) {
-		return false
-	}
-	for i, v := range a {
-		if v != b[i] {
-			return false
-		}
-	}
-	return true
 }
